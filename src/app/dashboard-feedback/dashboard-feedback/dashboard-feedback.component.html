@@ -1,0 +1,19 @@
+<div>
+    <h3 class="box-title" *ngIf="SurveyType_Id==1" style="display:block;font-size:32px;font-weight:700;text-align:center;color:#005aa9">Customer Feedback Analysis – Instant</h3>
+    <h3 class="box-title" *ngIf="SurveyType_Id==2" style="display:block;font-size:32px;font-weight:700;text-align:center;color:#005aa9">Customer Feedback Analysis – Survey</h3>
+
+    <div class="row filtered-row">
+        <div class="rest-one">
+            <div class="col-xs-2 ">
+                <label>Switch To:</label>
+                <select name="Language" class="form-control selectpicker"
+                        [(ngModel)]="SurveyType_Id" (change)="ToggleDashboard(SurveyType_Id)">
+                    <option [value]="1">Instant Feedback</option>
+                    <option [value]="2">Survey Feedback</option>
+    
+    
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

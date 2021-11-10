@@ -1,0 +1,258 @@
+<style>
+  [hidden] {
+    display: none !important;
+  }
+</style>
+
+<div>
+  <section class="">
+    <!-- Info boxes -->
+    <h3 class="box-title" [hidden]="Instant"
+      style="display:block;font-size:32px;font-weight:700;text-align:center;color:#005aa9;margin-top:0">
+      {{InstantFeedbackLabel}} </h3>
+    <h3 class="box-title" [hidden]="Survey"
+      style="display:block;font-size:32px;font-weight:700;text-align:center;color:#005aa9;margin-top:0">
+      {{SurveyFeedbackLabel}} </h3>
+    <h3 class="box-title" [hidden]="SMR"
+      style="display:block;font-size:32px;font-weight:700;text-align:center;color:#005aa9;margin-top:0">
+      {{ServiceRemindersLabel}}</h3>
+    <!--  <h3 class="box-title" hidden="Analysis==true" style="display:block;font-size:32px;font-weight:700;text-align:center;color:#005aa9;margin-top:0">{{SurveyAnalysisLabel}}</h3> -->
+    <h3 class="box-title" [hidden]="PSFS"
+      style="display:block;font-size:32px;font-weight:700;text-align:center;color:#005aa9;margin-top:0">
+      Post Service Follow-up</h3>
+    <h3 class="box-title" [hidden]="PSFSales"
+      style="display:block;font-size:32px;font-weight:700;text-align:center;color:#005aa9;margin-top:0">
+      {{PostSalesFollowupLabel}}</h3>
+    <h3 class="box-title" [hidden]="PERF"
+      style="display:block;padding-top:14px;font-size:32px;font-weight:700;text-align:center;color:#005aa9;margin-top:0">
+      {{CSSRKPILabel}}</h3>
+  </section>
+
+  <!-- <div class="row" style="margin-right: 0px;margin-left: 0px;"> -->
+  <div class="col-sm-2 ">
+    <label>{{SwitchToLabel}}:</label>
+    <select name="Language" class="form-control selectpicker" [(ngModel)]="SurveyType_Id"
+      (change)="toggleDashboard(SurveyType_Id)">
+
+      <option [value]="1">{{InstantFeedbackLabel}}</option>
+      <option [value]="2">{{SurveyFeedbackLabel}}</option>
+      <option [value]="3">{{ServiceRemindersLabel}}</option>
+      <option [value]="4" [hidden]="session.Country_Id ==11">Post Service Follow-up</option>
+      <option [value]="6" [hidden]="session.Country_Id ==11">{{PostSalesFollowupLabel}}</option>
+      <option [value]="5">{{CSSRKPILabel}}</option>
+
+
+    </select>
+  </div>
+
+
+  <div class="col-sm-2">
+    <label>{{FromDateLabel}}</label>
+    <mat-form-field style="display: block;">
+      <input matInput [matDatepicker]="datepicker" [(ngModel)]="searchObj.FromDate" placeholder="Select Date">
+      <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+      <mat-datepicker #datepicker></mat-datepicker>
+    </mat-form-field>
+
+  </div>
+
+  <div class="col-sm-2">
+    <label>{{ToDateLabel}}</label>
+    <mat-form-field style="display: block;">
+      <input matInput [matDatepicker]="datepicker2" [(ngModel)]="searchObj.ToDate" placeholder="Select Date">
+      <mat-datepicker-toggle matSuffix [for]="datepicker2"></mat-datepicker-toggle>
+      <mat-datepicker #datepicker2></mat-datepicker>
+    </mat-form-field>
+
+
+
+  </div>
+
+  <div [hidden]="Role!='HOAdmin'" class="col-xs-2 col-sm-2">
+    <label>{{CountryLabel}}</label>
+    <select name="Language" class="form-control selectpicker" (change)="GetDealerByCountry(searchObj.Country_Id)"
+      [(ngModel)]="searchObj.Country_Id">
+      <option *ngFor="let country of countryObj" [value]="country.Country_Id">
+        {{country.CountryName}}
+      </option>
+    </select>
+  </div>
+
+  <div *ngIf="Role=='HOAdmin' || Role=='Distributor'" class="col-xs-2 col-sm-2 ">
+    <label>{{DealerOutletCodeLabel}}</label>
+    <select name="Language" class="form-control selectpicker" [(ngModel)]="searchObj.OutletId">
+      <option *ngFor="let outlet of OutletObj" [value]="outlet.Outlet_Id">
+        {{outlet.OutletCode}}
+      </option>
+    </select>
+  </div>
+  <!-- </div> -->
+  <!-- <div class="row " style="margin-right: 0px;margin-left: 0px;"> -->
+  <div class="col-xs-2 col-sm-2 ">
+    <label>{{VehicleLabel}}</label>
+    <select name="Language" class="form-control selectpicker" [(ngModel)]="searchObj.VehicleType">
+      <option *ngFor="let vehicle of VehicleTypeObj" [value]="vehicle.VehicleType_Id">
+        {{vehicle.VehicleType}}
+      </option>
+    </select>
+  </div>
+  <div class="col-xs-2 col-sm-2">
+    <label style="width:100%">&nbsp;</label>
+    <button type="button" class="btn btn-primary btn-sm" (click)="changeCountry(SurveyType_Id)">{{SearchLabel}}</button>
+  </div>
+
+  <!-- </div> -->
+  <br />
+
+</div>
+
+
+
+
+
+
+
+
+<!-- Content Header (Page header) 
+    Main content 
+    <section class="content">
+      
+        left column
+        <div class="col-md-12">
+           general form elements 
+          <div class="box box-primary">
+            <div class="box-header with-border">
+             
+            
+          </div>
+             /.box-header
+        form start 
+            <form role="form">
+              <div class="box-body">
+                <section class="">
+                 Info boxes 
+            
+           
+                <div class="row">
+                    <div class="col-sm-3 ">
+                        <label>{{SwitchToLabel}}</label>
+                      
+                        <select name="Language" class="form-control selectpicker"
+                                [(ngModel)]="SurveyType_Id" (change)="toggleDashboard(SurveyType_Id)">
+                           
+                            <option [value]="1">{{InstantFeedbackLabel}}</option>
+                            <option [value]="2">{{SurveyFeedbackLabel}}</option>
+                            <option [value]="3">{{ServiceRemindersLabel}}</option>
+                            <option [value]="4">{{PostServiceFollowupLabel}}</option>
+                             [hidden]="session.Country_Id ==11" 
+                            <option [value]="6">{{PostSalesFollowupLabel}}</option>
+                           [hidden]="session.Country_Id ==11"
+                            <option [value]="5">{{CSSRKPILabel}}</option>
+                            
+                
+                        </select>
+                    </div>
+                
+                    <div class="col-sm-3">
+                        <label>{{FromDateLabel}}</label>
+                <mat-form-field>
+                  <input matInput [matDatepicker]="datepicker" placeholder="Select Date">
+                  <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                  <mat-datepicker #datepicker></mat-datepicker>
+                </mat-form-field>
+                       
+                    </div>
+
+                    <div class="col-sm-3">
+                      <label>{{ToDateLabel}}</label>
+                      <mat-form-field>
+                        <input matInput [matDatepicker]="datepicker1" placeholder="Select Date">
+                        <mat-datepicker-toggle matSuffix [for]="datepicker1"></mat-datepicker-toggle>
+                        <mat-datepicker #datepicker1></mat-datepicker>
+                      </mat-form-field>
+          
+                      <datepicker date-format=" MMMM dd, yyyy" button-prev="
+                                                    <i class='fa fa-arrow-circle-left'></i>" button-next="<i class='fa fa-arrow-circle-right'></i>" class="ng-isolate-scope" >
+                                                    <input ng-required class="form-control col-xs-3" ng-model="SerachObj.ToDate" type="text" placeholder="Enter to date"  />
+          
+                                                </datepicker> 
+                  </div>
+
+                
+             <div class="col-xs-2">
+              <label style="width:100%">&nbsp;</label>
+              <button type="button" class="btn btn-primary btn-sm">
+              {{SearchLabel}}
+            </button>
+            (click)="changeCountry(SurveyType_Id)"
+          </div> 
+
+                </div>
+                <div class="row">
+                  <div class="col-sm-3 ">
+                   [hidden]="Role=='HOAdmin'"
+                    <label>{{CountryLabel}}</label>
+                      <select name="Language" class="form-control selectpicker" (change)="GetDealerByCountry(searchObj.Country_Id)"
+                            ng-options=" DC.Country_Id as DC.CountryName for DC in CountryObj"
+                            [(ngModel)]="searchObj.Country_Id" >
+                          <option [value]="0">All</option>
+                      </select>
+                </div>
+
+                <div class="col-sm-3" >
+                [hidden]="Role=='HOAdmin' || Role=='Distributor'"
+                  <label>{{DealerOutletCodeLabel}}</label>
+                  <select name="Language" class="form-control selectpicker"
+                          ng-options="DC.Outlet_Id as (DC.OutletCode) for DC in OutletObj"
+                          [(ngModel)]="searchObj.OutletId">
+                      <option [value]="0">All</option>
+                  </select>
+              </div>
+
+
+             <div class="col-sm-3 ">
+                <label>{{VehicleLabel}}</label>
+                <select name="Language" class="form-control selectpicker"
+                       
+                        [(ngModel)]="searchObj.VehicleType" >
+                    <option  [value]="0">All</option>
+  ng-options=" DC.VehicleType_Id as DC.VehicleType for DC in VehicleTypeObj"
+*ngFor="let vehicle of VehicleTypeObj "
+                  
+
+                </select>
+            </div> 
+
+                  </div>
+
+                </section>
+              </div>
+               /.box-body
+
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          
+          /.box 
+
+           Form Element sizes 
+          
+
+          
+         /.box
+
+         Input addon 
+          
+          /.box 
+
+        </div>
+       /.col (left)
+         right column
+        </div>
+       /.col (right) 
+      </div>
+      /.row 
+    </section>
+     /.content 
+  </div>  -->

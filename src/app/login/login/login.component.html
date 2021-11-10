@@ -1,0 +1,197 @@
+
+   
+<style>
+    
+     #helpdesk.main {
+            right: -15px;
+        }
+
+        #helpdesk {
+            right: -508px;
+            border-radius: 6px;
+            box-shadow: -4px 3px 6px 0 #6e6c6c;
+            overflow: hidden;
+            margin: 0;
+            position: fixed;
+            z-index: 9999;
+            top: 64px;
+            width: 264px;
+            padding-right: 15px;
+        }
+
+        .box-header.with-border {
+            border-bottom: 1px solid #f4f4f4;
+        }
+
+        .box-header {
+            color: #444;
+            display: block;
+            padding: 10px;
+            position: relative;
+        }
+
+            .box-header > .fa, .box-header > .glyphicon, .box-header > .ion, .box-header .box-title {
+                display: inline-block;
+                font-size: 18px;
+                margin: 0;
+                line-height: 1;
+            }
+
+        .box .box-group > .box {
+            margin-bottom: 5px;
+        }
+
+        .box.box-primary {
+            border-top-color: #3c8dbc;
+        }
+
+        .box {
+            position: relative;
+            border-radius: 3px;
+            background: #ffffff;
+            border-top: 3px solid #d2d6de;
+            margin-bottom: 20px;
+            width: 100%;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+        }
+
+        .box-body {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 3px;
+            border-bottom-left-radius: 3px;
+            padding: 10px;
+        }
+</style>
+<div style="background-image: url('../../../assets/img/career-hero.jpg');">
+
+ <div class="box box-solid" id="helpdesk">
+     <div class="box-header with-border" style="
+ background: #3c8dbc;
+ color: #fff;">
+         <h3 class="box-title">Helpdesk</h3>
+     </div>
+   <!-- /.box-header -->
+     <div class="box-body">
+         <div class="box-group" id="accordion">
+             <div class="panel box box-primary">
+                 <div id="collapseOne" class="panel-collapse collapse in" aria-expanded="true" style="padding:12px;">
+                     <a href="assets/Templates/1. System Login.pdf" target="_blank" style="text-decoration:none;font-size:16px;color:#3c8dbc;">System Login</a>
+                 </div>
+             </div>
+         </div>
+     </div>
+   </div>
+   
+   <button style="
+   position: fixed;
+   right: -36px;
+   top: 87px;
+   z-index: 99999;
+   background: #3c8dbc;
+   border: 0;
+   color: #fff;
+   padding: 10px 15px;
+   border-top-right-radius: 6px;
+   border-top-left-radius: 6px;
+   transform: rotate(-90deg);
+" id="help-btn">
+       <img src="assets/img/helpdesk.jpg" style=
+       "width: 21px;
+   margin-right: 5px;
+   border-radius: 50%;
+   border: 2px solid #fff;"> Helpdesk
+   </button>
+
+
+ <!-- <div style="width: 100%; height: 100%; position: fixed; z-index: 99999999999; left: 0; top: 0;background:#0000004d" us-spinner="{radius:30, width:8, length: 16}">
+
+     <div style="clear: both;" class="clear"></div>
+ </div> -->
+
+<!--
+ <div style="width: 100%; height: 100%; position: fixed; z-index: 9999999999999; left: 0; top: 0;" us-spinner="{radius:30, width:8, length: 16}">
+
+     <div style="clear: both;" class="clear"></div>
+ </div>
+-->
+
+ <!-- Form Mixin-->
+    <!-- Input Mixin-->
+    <!-- Button Mixin-->
+    <!-- Pen Title-->
+<div class="bac_img">
+    <div class="pen-title">
+
+
+</div>
+
+ <!-- Form Module-->
+<div class="module form-module" style="background: transparent;margin-top: 50px;" *ngIf="Login==true">
+
+   <div class="toggle" style="display:none">
+
+    </div>
+
+  <div class="form"   style= "background: #17161273;">
+    <h4 style="color:#fff;margin-top:0">CFS | CUSTOMER FEEDBACK SYSTEM</h4>
+     <form name="LoginForm">
+         <input type="text" placeholder="UserName"  [(ngModel)]="userName" name="username"  required="true">
+
+        <input type="password"  placeholder="Password"    [(ngModel)]="password" name="password" required="true" >
+
+        <button type="submit" class="btn-default"    (click)="testLogin(userName,password)">Login</button>
+
+        <button type="submit" style="margin-top:10px" class="btn-warning" (click)="toggleDiv('forgot')" class="btn-warning">Forgot Password</button>
+      </form>
+    </div>
+</div>
+ 
+<div  *ngIf="Forgot==true" class="module form-module" style="background: transparent;margin-top: 50px;"   >
+     
+     <div class="toggle" style="display:none">
+
+
+     </div>
+     <div>
+     <div class="form" style="background: #17161273;">
+         <h4 style="color:#fff;margin-top:0">CFS | Customer Feedback System</h4>
+         <form (ngSubmit)="forgotPassword(forgotUserName)"  >
+          
+             <input type="text" placeholder="Username" name="Username" required="true" [(ngModel)]="forgotUserName" />
+              
+
+             <button type="submit">Send Password</button>
+             <button type="submit" style="margin-top:10px" (click)="toggleDiv('Login')">Back</button>
+         </form>
+     </div>
+
+
+ </div>
+ </div>
+ <div class="module form-module" style="background: transparent;margin-top: 50px;"
+ *ngIf="FirstLogin==true" >
+  
+     <div class="toggle" style="display:none">
+
+
+     </div>
+     <div class="form" style="background: #17161273;">
+         <h4 style="color:#fff;margin-top:0">Setup new password</h4>
+         <form (ngSubmit)="setNewPassword(currentPassword,newPassword)" >
+           
+             <input type="password" placeholder="Current Password" name="Username" [required]="true" [(ngModel)]="currentPassword" />
+           
+              
+             <input type="password" placeholder="New Password" name="Username" [required]="true" [(ngModel)]="newPassword" />
+         
+
+             <button type="submit">Update Password</button>
+
+         </form>
+     </div>
+
+
+ </div>  
+</div>
+</div>
